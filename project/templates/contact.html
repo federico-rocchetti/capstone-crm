@@ -1,4 +1,13 @@
 {% extends 'base.html' %}
 {% block body %}
-
+<ul class="list-group">
+        <li class="list-group-item">
+            <p>Name: {{ contact.name }}</p> <br>
+            <p>Type: {{ contact.contact_type }}</p> <br>
+            <p>Mobile: {{ contact.mobile_phone }}</p> <br>
+            <p>Work: {{ contact.work_phone }}</p> <br>
+            <p>Email: {{ contact.email }}</p> <br>
+            <p>Address: {{ contact.address }}</p> <br>
+            <p>Company Name: {{ contact.company }}</p> <br>
+        </li>
 {% endblock %}

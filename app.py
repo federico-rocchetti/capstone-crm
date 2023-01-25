@@ -71,6 +71,12 @@ def add_contact():
         return redirect(url_for('add_contact'))
     return render_template('/add_contact.html', form=form)
 
+@app.route('/contact/<contact_id>')
+@login_required
+def contact(contact_id):
+    contact = Contact.query.get(contact_id)
+    return render_template('contact.html', contact=contact)
+
 if __name__ == "__main__":
     connect_to_db(app)
     app.run(debug=True)

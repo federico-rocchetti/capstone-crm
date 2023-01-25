@@ -5,11 +5,10 @@
     <ul class="list-group">
         {% for contact in contacts %}
         <li class="list-group-item">
-
-            {{ contact.name }}
-            {{ contact.type }}
-            {{ contact.company }}
-            </a>
+            <p>Name: {{ contact.name }}</p> <br>
+            <p>Type: {{ contact.contact_type }}</p><br>
+            <p>Company: {{ contact.company }}</p><br>
+            <a href="/contact/{{ contact.id }}" class="btn btn-primary" role="button">Info</a>
         </li>
         {% endfor %}
     </ul>
