@@ -1,17 +1,12 @@
 from project import app, db, connect_to_db
 from flask import render_template, redirect, request, url_for, flash, abort
 from flask_login import login_user, login_required, logout_user
-from project.models import User
-from project.forms import LoginForm, RegistrationForm
+from project.models import User, Contact, Note
+from project.forms import LoginForm, RegistrationForm, AddContact
 
 @app.route('/')
 def home():
     return render_template('/home.html')
-
-@app.route('/dashboard')
-@login_required
-def dashboard():
-    return render_template('/dashboard.html')
 
 @app.route("/login", methods=['GET', 'POST'])
 def login():
@@ -51,7 +46,30 @@ def register():
 def logout():
     logout_user()
     flash("Logged out successfully")
-    return redirect(url_for('home.html'))
+    return redirect(url_for('home'))
+
+@app.route('/dashboard')
+@login_required
+def dashboard():
+
+    contacts = Contact.query.all()
+
+    return render_template('/dashboard.html', contacts=contacts)
+
+@app.route('/add_contact', methods=['GET', 'POST'])
+@login_required
+def add_contact():
+
+    form = AddContact()
+    if form.validate_on_submit():
+        contact = Contact(user_id=form.user_id.data, name=form.name.data, contact_type=form.contact_type.data, email=form.email.data,
+                        mobile_phone=form.mobile_phone.data, work_phone=form.work_phone.data, address=form.address.data,
+                        company=form.company.data)
+        db.session.add(contact)
+        db.session.commit()
+        flash("Contact Added.")
+        return redirect(url_for('add_contact'))
+    return render_template('/add_contact.html', form=form)
 
 if __name__ == "__main__":
     connect_to_db(app)

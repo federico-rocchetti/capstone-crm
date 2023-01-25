@@ -31,10 +31,10 @@ class Contact(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable = False)
     name = db.Column(db.String(40), nullable = False)
     contact_type = db.Column(db.String(40), nullable = False)
-    email = db.Column(db.VARCHAR(60))
-    work_phone = db.Column(db.Integer())
-    mobile_phone = db.Column(db.Integer())
-    address = db.Column(db.VARCHAR(60))
+    email = db.Column(db.String(60))
+    work_phone = db.Column(db.String())
+    mobile_phone = db.Column(db.String())
+    address = db.Column(db.String(60))
     company = db.Column(db.String(60))
 
     def __init__(self, user_id, name, contact_type, email, work_phone, mobile_phone, address, company):
@@ -53,7 +53,7 @@ class Note(db.Model):
 
     id = db.Column(db.Integer, primary_key = True, autoincrement = True)
     contact_id = db.Column(db.Integer, db.ForeignKey("contacts.id"), nullable = False)
-    note = db.Column(db.Text(255), nullable = False)
+    note = db.Column(db.String(300), nullable = False)
 
     def __init__(self, contact_id, note):
         self.contact_id = contact_id

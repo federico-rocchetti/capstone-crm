@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField
+from wtforms import StringField, PasswordField, SubmitField, IntegerField
 from wtforms.validators import DataRequired, Email, EqualTo, Length
 from wtforms import ValidationError
 
@@ -19,3 +19,16 @@ class RegistrationForm(FlaskForm):
     def check_username(self, field):
         if User.query.filter_by(username=field.data).first():
             raise ValidationError("Username already in use, please try another one.")
+
+class AddContact(FlaskForm):
+
+    user_id = IntegerField("User", validators=[DataRequired()])
+    name = StringField("Name", validators=[DataRequired()])
+    contact_type = StringField("Contact Type", validators=[DataRequired()])
+    email = StringField("Email", validators=[DataRequired()])
+    mobile_phone = StringField("Mobile Phone", validators=[DataRequired()])
+    work_phone = StringField("Work Phone")
+    address = StringField("Address")
+    company = StringField("Company Name")
+    submit = SubmitField("Submit")
+
