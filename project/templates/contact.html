@@ -9,5 +9,7 @@
             <p>Email: {{ contact.email }}</p> <br>
             <p>Address: {{ contact.address }}</p> <br>
             <p>Company Name: {{ contact.company }}</p> <br>
+            <a href="/update_contact/{{ contact.id }}" class="btn btn-primary" role="button">Edit</a>
+
         </li>
 {% endblock %}

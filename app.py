@@ -1,6 +1,6 @@
 from project import app, db, connect_to_db
 from flask import render_template, redirect, request, url_for, flash, abort
-from flask_login import login_user, login_required, logout_user
+from flask_login import login_user, login_required, logout_user, current_user
 from project.models import User, Contact, Note
 from project.forms import LoginForm, RegistrationForm, AddContact
 
@@ -62,7 +62,7 @@ def add_contact():
 
     form = AddContact()
     if form.validate_on_submit():
-        contact = Contact(user_id=form.user_id.data, name=form.name.data, contact_type=form.contact_type.data, email=form.email.data,
+        contact = Contact(user_id=current_user.id, name=form.name.data, contact_type=form.contact_type.data, email=form.email.data,
                         mobile_phone=form.mobile_phone.data, work_phone=form.work_phone.data, address=form.address.data,
                         company=form.company.data)
         db.session.add(contact)
@@ -77,6 +77,30 @@ def contact(contact_id):
     contact = Contact.query.get(contact_id)
     return render_template('contact.html', contact=contact)
 
+@app.route('/update_contact/<contact_id>', methods=['GET', 'POST'])
+@login_required
+def update_contact(contact_id):
+    form = AddContact()
+    contact_to_update = Contact.query.get(contact_id)
+    if form.validate_on_submit():
+        contact_to_update.name = form.name.data
+        contact_to_update.contact_type = form.contact_type.data
+        contact_to_update.email = form.email.data
+        contact_to_update.mobile_phone = form.mobile_phone.data
+        contact_to_update.work_phone = form.work_phone.data
+        contact_to_update.address = form.address.data
+        contact_to_update.company = form.company.data
+
+        db.session.commit()
+        flash('Contact updated.')
+        updated_contact = Contact.query.get(contact_id)
+        return render_template('contact.html', contact=updated_contact)
+    return render_template("update_contact.html", contact_to_update=contact_to_update, form=form)
+
+@app.route('/delete_contact')
+@login_required
+def delete_contact():
+    pass
 if __name__ == "__main__":
     connect_to_db(app)
     app.run(debug=True)

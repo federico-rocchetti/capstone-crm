@@ -22,7 +22,6 @@ class RegistrationForm(FlaskForm):
 
 class AddContact(FlaskForm):
 
-    user_id = IntegerField("User", validators=[DataRequired()])
     name = StringField("Name", validators=[DataRequired()])
     contact_type = StringField("Contact Type", validators=[DataRequired()])
     email = StringField("Email", validators=[DataRequired()])
