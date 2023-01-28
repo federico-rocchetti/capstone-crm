@@ -9,7 +9,21 @@
             <p>Email: {{ contact.email }}</p> <br>
             <p>Address: {{ contact.address }}</p> <br>
             <p>Company Name: {{ contact.company }}</p> <br>
-            <a href="/update_contact/{{ contact.id }}" class="btn btn-primary" role="button">Edit</a>
 
+            <p>Notes:</p>
+            {% for note in notes %}
+            <p>{{ note.note }}</p>
+            <a href="/delete_note/{{ contact.id }}/{{ note.id }}" class="btn btn-primary" role="button">Delete</a>
+            {% endfor %}
+            
         </li>
-{% endblock %}
+        <form method="POST">
+            {{form.hidden_tag()}}
+            {{form.note.label}} {{form.note()}}
+            {{form.submit()}}
+        </form>
+
+        <a href="/update_contact/{{ contact.id }}" class="btn btn-primary" role="button">Edit</a><br>
+        <a href="/delete_contact/{{ contact.id }}" class="btn btn-primary" role="button">Delete</a>
+        {% endblock %}
+</ul>

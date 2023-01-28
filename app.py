@@ -2,7 +2,7 @@ from project import app, db, connect_to_db
 from flask import render_template, redirect, request, url_for, flash, abort
 from flask_login import login_user, login_required, logout_user, current_user
 from project.models import User, Contact, Note
-from project.forms import LoginForm, RegistrationForm, AddContact
+from project.forms import LoginForm, RegistrationForm, AddContact, AddNote
 
 @app.route('/')
 def home():
@@ -15,7 +15,7 @@ def login():
     if form.validate_on_submit():
         user = User.query.filter_by(username=form.username.data).first()
 
-        if user.check_password(form.password.data) and user is not None:
+        if user is not None and user.check_password(form.password.data) :
             login_user(user)
             flash("Logged in Succesfully.")
 
@@ -25,7 +25,8 @@ def login():
                 next = url_for('dashboard')
             
             return redirect(next)
-
+        else:
+            flash('Invalid username or password.')
     return render_template('login.html', form=form)
 
 @app.route("/register", methods=['GET', 'POST'])
@@ -33,11 +34,15 @@ def register():
 
     form = RegistrationForm()
     if form.validate_on_submit():
-        user = User(username=form.username.data, password=form.password.data)
-        db.session.add(user)
-        db.session.commit()
-        flash("Registered Successfully.")
-        return redirect(url_for('login'))
+        user = User.query.filter_by(username=form.username.data).first()
+        if user is None:
+            user = User(username=form.username.data, password=form.password.data)
+            db.session.add(user)
+            db.session.commit()
+            flash("Registered Successfully.")
+            return redirect(url_for('login'))
+        else:
+            flash("Username already in use.")
     return render_template('register.html', form=form)
 
 
@@ -62,20 +67,35 @@ def add_contact():
 
     form = AddContact()
     if form.validate_on_submit():
-        contact = Contact(user_id=current_user.id, name=form.name.data, contact_type=form.contact_type.data, email=form.email.data,
-                        mobile_phone=form.mobile_phone.data, work_phone=form.work_phone.data, address=form.address.data,
-                        company=form.company.data)
+        contact = Contact(user_id=current_user.id, 
+                            name=form.name.data, 
+                            contact_type=form.contact_type.data, 
+                            email=form.email.data,
+                            mobile_phone=form.mobile_phone.data, 
+                            work_phone=form.work_phone.data, 
+                            address=form.address.data,
+                            company=form.company.data) 
         db.session.add(contact)
         db.session.commit()
         flash("Contact Added.")
         return redirect(url_for('add_contact'))
     return render_template('/add_contact.html', form=form)
 
-@app.route('/contact/<contact_id>')
+@app.route('/contact/<contact_id>', methods=['GET', 'POST'])
 @login_required
 def contact(contact_id):
     contact = Contact.query.get(contact_id)
-    return render_template('contact.html', contact=contact)
+    notes = Note.query.filter_by(contact_id=contact_id)
+
+    form = AddNote()
+    if form.validate_on_submit():
+        note = Note(contact_id=contact_id,
+                        note=form.note.data)
+        db.session.add(note)
+        db.session.commit()
+        flash('Note added to contact.')
+        return redirect(url_for('contact', contact_id=contact_id, form=form, contact=contact, notes=notes))
+    return render_template('contact.html', contact=contact, form=form, notes=notes)
 
 @app.route('/update_contact/<contact_id>', methods=['GET', 'POST'])
 @login_required
@@ -93,14 +113,27 @@ def update_contact(contact_id):
 
         db.session.commit()
         flash('Contact updated.')
-        updated_contact = Contact.query.get(contact_id)
-        return render_template('contact.html', contact=updated_contact)
+        return redirect(url_for('contact', contact_id=contact_id))
     return render_template("update_contact.html", contact_to_update=contact_to_update, form=form)
 
-@app.route('/delete_contact')
+@app.route('/delete_contact/<contact_id>')
 @login_required
-def delete_contact():
-    pass
+def delete_contact(contact_id):
+    contact_to_delete = Contact.query.get(contact_id)
+    db.session.delete(contact_to_delete)
+    db.session.commit()
+    flash('Contact Deleted')
+    return redirect(url_for('dashboard'))
+
+@app.route('/delete_note/<contact_id>/<note_id>')
+@login_required
+def delete_note(contact_id, note_id):
+    note_to_delete = Note.query.get(note_id)
+    db.session.delete(note_to_delete)
+    db.session.commit()
+    flash('Note deleted.')
+    return redirect(url_for('contact', contact_id=contact_id))
+
 if __name__ == "__main__":
     connect_to_db(app)
     app.run(debug=True)

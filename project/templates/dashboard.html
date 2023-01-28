@@ -9,6 +9,7 @@
             <p>Type: {{ contact.contact_type }}</p><br>
             <p>Company: {{ contact.company }}</p><br>
             <a href="/contact/{{ contact.id }}" class="btn btn-primary" role="button">Info</a>
+            <a href="/delete_contact/{{ contact.id }}" class="btn btn-primary" role="button">Delete</a>
         </li>
         {% endfor %}
     </ul>

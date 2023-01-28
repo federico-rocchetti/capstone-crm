@@ -37,6 +37,8 @@ class Contact(db.Model):
     address = db.Column(db.String(60))
     company = db.Column(db.String(60))
 
+    notes = db.relationship("Note", cascade="delete", backref="notes", lazy=True)
+
     def __init__(self, user_id, name, contact_type, email, work_phone, mobile_phone, address, company):
         self.user_id = user_id
         self.name = name
@@ -52,7 +54,7 @@ class Note(db.Model):
     __tablename__ = "notes"
 
     id = db.Column(db.Integer, primary_key = True, autoincrement = True)
-    contact_id = db.Column(db.Integer, db.ForeignKey("contacts.id"), nullable = False)
+    contact_id = db.Column(db.Integer, db.ForeignKey("contacts.id"),nullable = False)
     note = db.Column(db.String(300), nullable = False)
 
     def __init__(self, contact_id, note):
@@ -60,6 +62,5 @@ class Note(db.Model):
         self.note = note
 
 if __name__ == "__main__":
-    from flask import Flask
     connect_to_db(app)
     print("Connected to db...")

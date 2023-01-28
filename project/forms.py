@@ -31,3 +31,7 @@ class AddContact(FlaskForm):
     company = StringField("Company Name")
     submit = SubmitField("Submit")
 
+class AddNote(FlaskForm):
+
+    note = StringField("Note", validators=[DataRequired()])
+    submit = SubmitField("Submit")

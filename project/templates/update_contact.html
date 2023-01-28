@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block body %}
+<form action="/update_contact/{{ contact_to_update.id }}" method="POST">
+    {{form.hidden_tag()}}
+    {{form.name.label}} {{form.name(value=contact_to_update.name)}}<br>
+    {{form.contact_type.label}} {{form.contact_type(value=contact_to_update.contact_type)}}<br>
+    {{form.email.label}} {{form.email(value=contact_to_update.email)}}<br>
+    {{form.mobile_phone.label}} {{form.mobile_phone(value=contact_to_update.mobile_phone)}}<br>
+    {{form.work_phone.label}} {{form.work_phone(value=contact_to_update.work_phone)}}<br>
+    {{form.address.label}} {{form.address(value=contact_to_update.address)}}<br>
+    {{form.company.label}} {{form.company(value=contact_to_update.company)}}<br>
+    {{form.submit()}}    
+</form>
+{% endblock %}
