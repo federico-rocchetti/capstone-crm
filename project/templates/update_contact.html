@@ -11,4 +11,5 @@
     {{form.company.label}} {{form.company(value=contact_to_update.company)}}<br>
     {{form.submit()}}    
 </form>
+<a href="/contact/{{ contact_to_update.id }}" class="btn btn-primary" role="button">Cancel</a>
 {% endblock %}

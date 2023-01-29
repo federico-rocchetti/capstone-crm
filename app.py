@@ -134,6 +134,23 @@ def delete_note(contact_id, note_id):
     flash('Note deleted.')
     return redirect(url_for('contact', contact_id=contact_id))
 
+@app.route('/edit_note/<contact_id>/<note_id>', methods=['GET', 'POST'])
+@login_required
+def edit_note(contact_id, note_id):
+
+    form = AddNote()
+    note_to_update = Note.query.get(note_id)
+    if form.validate_on_submit():
+        note_to_update.note = form.note.data
+
+        db.session.commit()
+
+        flash("Note edited.")
+        return redirect(url_for('contact', contact_id=contact_id))
+    return render_template("edit_note.html", contact_id=contact_id, note_to_update=note_to_update, form=form)
+
+ 
+
 if __name__ == "__main__":
     connect_to_db(app)
     app.run(debug=True)
