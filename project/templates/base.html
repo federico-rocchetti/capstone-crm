@@ -3,13 +3,13 @@
     <title>CRM</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
-    <link rel="stylesheet" href="/static/styles.css">
+    <link rel="stylesheet" href="../static/styles.css">
 </head>
 
 <body class="body-all">
     <nav class="navbar navbar-dark bg-dark navbar-expand-lg">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">CRM</a>
+            <a class="navbar-brand" href="{{ url_for('home') }}">CRM</a>
             <div class="collapse navbar-collapse">
                 <div class="navbar-nav">
                     <a class="nav-link" href="{{ url_for('home') }}">Home</a>
@@ -29,13 +29,14 @@
         </div>
     </nav>
 
-  <div class="container">
-    {% for message in get_flashed_messages() %}
-    <p class="alert alert-warning">{{ message }}</p>
-    {% endfor %}
-    {% block body %}
-    {% endblock %}
+    <div class="container">
+        {% for message in get_flashed_messages() %}
+            <p class="alert alert-warning">{{ message }}</p>
+        {% endfor %}
+        {% block body %}
+        {% endblock %}
   </div>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.0.0/axios.min.js" integrity="sha512-26uCxGyoPL1nESYXHQ+KUmm3Maml7MEQNWU8hIt1hJaZa5KQAQ5ehBqK6eydcCOh6YAuZjV3augxu/5tY4fsgQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </body>
 </html>

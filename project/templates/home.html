@@ -1,10 +1,12 @@
 {% extends 'base.html' %}
 {% block body %}
-    <div class="jumbotron">
-        {% if current_user.is_authenticated %}
-        <p> Hello, {{ current_user.username }} </p>
-        {% else %}
-        <p>Please login or signup.</p>
-        {% endif %}
+    <div class="container">
+        <div class="page-header">
+            <h1 class="text-center">Welcome to your personal Contact Resource Manager.</h1>
+            <h2 class="text-center">Please <a href="{{ url_for('login') }}" class="btn btn-primary" role="button">Log In</a> 
+                or <a href="{{ url_for('register') }}" class="btn btn-primary" role="button">Sign up</a>
+                to continue to your Dashboard!
+            </h2>
+        </div>
     </div>
 {% endblock %}

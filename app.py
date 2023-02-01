@@ -57,7 +57,7 @@ def logout():
 @login_required
 def dashboard():
 
-    contacts = Contact.query.all()
+    contacts = Contact.query.filter_by(user_id=current_user.id)
 
     return render_template('/dashboard.html', contacts=contacts)
 
