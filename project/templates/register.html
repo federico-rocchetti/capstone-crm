@@ -3,7 +3,7 @@
 <div class="container login">
     <div class="panel panel-default">
         <div class="panel-heading h2 text-center">Sign Up</div> 
-        <form method="POST">
+        <form class="form-login" method="POST">
             {{form.hidden_tag()}}
             <div class="panel-body h5">
                 {{form.username.label}}
@@ -25,7 +25,12 @@
             </div>
             <div class="panel-body h5">
                 {{form.submit()}}
-            </div>  
+            </div>
+            <div class="register-link">
+                <p class="register-link-text">
+                    Already have an account? <a href="{{ url_for('login') }}">Login here!</a>
+                </p>
+            </div>
         </form>
     </div>
 </div>

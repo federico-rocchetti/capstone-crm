@@ -2,8 +2,17 @@
 {% block body %}
     <div class="container">
         <div class="page-header">
-            <h1 class="text-center">Welcome to your personal Contact Resource Manager.</h1>
-            <h2 class="text-center">Please <a href="{{ url_for('login') }}" class="btn btn-primary" role="button">Log In</a> 
+            <h1 class="text-center">Contact Resource Manager</h1>
+        </div>
+        <div >
+            <h3 class="h3-home text-center">
+                For business and personal use, keep all of your contacts' information in one place. <br>
+                Add notes to your contacts to remember important information, birthdays, 
+                appointments or anything else you may need to write.
+            </h3>
+        </div>
+        <div>
+            <h2 class="h2-home text-center">Please <a href="{{ url_for('login') }}" class="btn btn-primary" role="button">Log In</a> 
                 or <a href="{{ url_for('register') }}" class="btn btn-primary" role="button">Sign up</a>
                 to continue to your Dashboard!
             </h2>
