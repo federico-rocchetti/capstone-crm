@@ -1,31 +1,39 @@
 {% extends 'base.html' %}
 {% block body %}
-<ul class="list-group">
-        <li class="list-group-item">
-            <p>Name: {{ contact.name }}</p> <br>
-            <p>Type: {{ contact.contact_type }}</p> <br>
-            <p>Mobile: {{ contact.mobile_phone }}</p> <br>
-            <p>Work: {{ contact.work_phone }}</p> <br>
-            <p>Email: {{ contact.email }}</p> <br>
-            <p>Address: {{ contact.address }}</p> <br>
-            <p>Company Name: {{ contact.company }}</p> <br>
+<div class="container-contact text-center">
+    <h1 class="page-header text-center">Contact Info</h1>
+    <ul class="list-group list-group-flush contact-list">
+            <li class="list-group-item align-items-center">Name: {{ contact.name }}</li>
+            <li class="list-group-item align-items-center">Type: {{ contact.contact_type }}</li>
+            <li class="list-group-item align-items-center">Mobile: {{ contact.mobile_phone }}</li>
+            <li class="list-group-item align-items-center">Work: {{ contact.work_phone }}</li>
+            <li class="list-group-item align-items-center">Email: {{ contact.email }}</li>
+            <li class="list-group-item align-items-center">Address: {{ contact.address }}</li>
+            <li class="list-group-item align-items-center">Company Name: {{ contact.company }}</li>
 
-            <p>Notes:</p>
+            <h4 class="text-center">Notes: </h4>
             {% for note in notes %}
-            <p>{{ note.note }}</p>
-            <a href="/delete_note/{{ contact.id }}/{{ note.id }}" class="btn btn-primary" role="button">Delete</a>
-            <a href="/edit_note/{{ contact.id }}/{{ note.id }}" class="btn btn-primary" role="button">Edit</a>
-            
+            <li class="list-group-item notes align-items-center">
+
+                    <p class="indiv-note">{{ note.note }}</p><br>
+                    <div class="notes-option-btns text-center">
+                        <a href="/delete_note/{{ contact.id }}/{{ note.id }}" class="btn btn-primary btn-sm" role="button">Delete</a>
+                        <a href="/edit_note/{{ contact.id }}/{{ note.id }}" class="btn btn-primary btn-sm" role="button">Edit</a>
+    
+                </div>
+            </li>
             {% endfor %}
             
-        </li>
-        <form method="POST">
-            {{form.hidden_tag()}}
-            {{form.note.label}} {{form.note()}}
-            {{form.submit()}}
-        </form>
-
-        <a href="/update_contact/{{ contact.id }}" class="btn btn-primary" role="button">Edit</a><br>
-        <a href="/delete_contact/{{ contact.id }}" class="btn btn-primary" role="button">Delete</a>
-{% endblock %}
-</ul>
+            <h4 class="text-center">Add Note: </h4>
+            <li class="list-group-item notes align-items-center">
+                <form method="POST">
+                    {{form.hidden_tag()}}
+                    {{form.note()}}<br>
+                        {{form.submit(class="btn btn-primary btn-sm submit-btn")}}
+                </form>
+            </li>
+        <a href="/update_contact/{{ contact.id }}" class="btn btn-primary btn-sm" role="button">Edit</a><br>
+        <a href="/delete_contact/{{ contact.id }}" class="btn btn-primary btn-sm" role="button">Delete</a>
+    </ul>
+</div>
+    {% endblock %}

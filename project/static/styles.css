@@ -72,3 +72,23 @@
 .h2-home {
     margin: 10%;
 }
+
+.notes {
+    border: solid;
+    border-width: 1px;
+    margin:3px;
+}
+
+.indiv-note {
+    margin: 2px;
+}
+
+.container-contact {
+    max-width: 500px;
+    margin-left: 30%;
+    margin-right: auto;
+}
+
+.submit-btn {
+    margin-top: 3px;
+}

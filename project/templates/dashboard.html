@@ -5,11 +5,11 @@
     <ul class="list-group">
         {% for contact in contacts %}
         <li class="list-group-item">
-            <p>Name: {{ contact.name }}</p> <br>
-            <p>Mobile Phone: {{ contact.mobile_phone }}</p><br>
-            <p>Company: {{ contact.company }}</p><br>
-            <a href="/contact/{{ contact.id }}" class="btn btn-primary" role="button">Info</a>
-            <a href="/delete_contact/{{ contact.id }}" class="btn btn-primary" role="button">Delete</a>
+            <h5>Name: {{ contact.name }}</h5> <br>
+            <h5>Mobile Phone: {{ contact.mobile_phone }}</h5> <br>
+            <h5>Company: {{ contact.company }}</h5><br>
+            <a href="/contact/{{ contact.id }}" class="btn btn-primary btn-sm" role="button">Info</a>
+            <a href="/delete_contact/{{ contact.id }}" class="btn btn-primary btn-sm" role="button">Delete</a>
         </li>
         {% endfor %}
     </ul>
