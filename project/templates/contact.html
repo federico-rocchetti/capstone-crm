@@ -1,8 +1,10 @@
 {% extends 'base.html' %}
 {% block body %}
-<div class="container-contact text-center">
-    <h1 class="page-header text-center">Contact Info</h1>
-    <ul class="list-group list-group-flush contact-list">
+<h1 class="page-header text-center">Contact</h1>
+<div class="container-contact">
+    <div class="contact-info">
+        <h4 class="text-center">Info: </h4>
+        <ul class="list-group list-group contact-list">
             <li class="list-group-item align-items-center">Name: {{ contact.name }}</li>
             <li class="list-group-item align-items-center">Type: {{ contact.contact_type }}</li>
             <li class="list-group-item align-items-center">Mobile: {{ contact.mobile_phone }}</li>
@@ -10,30 +12,38 @@
             <li class="list-group-item align-items-center">Email: {{ contact.email }}</li>
             <li class="list-group-item align-items-center">Address: {{ contact.address }}</li>
             <li class="list-group-item align-items-center">Company Name: {{ contact.company }}</li>
-
+            <div class="btns-contact">
+                <a href="/update_contact/{{ contact.id }}" class="btn btn-primary btn-sm margin-fix" role="button">Edit</a><br>
+                <a href="/delete_contact/{{ contact.id }}" class="btn btn-primary btn-sm margin-fix" role="button">Delete</a>
+            </div>
+        </ul>
+    </div>
+    <div class="contact-notes">
             <h4 class="text-center">Notes: </h4>
             {% for note in notes %}
-            <li class="list-group-item notes align-items-center">
+            <ul class="list-group list-group contact-list">
+                <li class="list-group-item notes align-items-center">
 
-                    <p class="indiv-note">{{ note.note }}</p><br>
+                    <p class="note">{{ note.note }}</p><br>
                     <div class="notes-option-btns text-center">
                         <a href="/delete_note/{{ contact.id }}/{{ note.id }}" class="btn btn-primary btn-sm" role="button">Delete</a>
                         <a href="/edit_note/{{ contact.id }}/{{ note.id }}" class="btn btn-primary btn-sm" role="button">Edit</a>
     
-                </div>
-            </li>
-            {% endfor %}
-            
+                    </div>
+                </li>
+                {% endfor %}
+            </ul>
+    </div>
+    <div class="contact-add-note">
             <h4 class="text-center">Add Note: </h4>
             <li class="list-group-item notes align-items-center">
-                <form method="POST">
+                <form class="text-center" method="POST">
                     {{form.hidden_tag()}}
-                    {{form.note()}}<br>
+                    {{form.note(class="note-text-area")}}<br>
                         {{form.submit(class="btn btn-primary btn-sm submit-btn")}}
                 </form>
             </li>
-        <a href="/update_contact/{{ contact.id }}" class="btn btn-primary btn-sm" role="button">Edit</a><br>
-        <a href="/delete_contact/{{ contact.id }}" class="btn btn-primary btn-sm" role="button">Delete</a>
-    </ul>
+    </div>
+    
 </div>
     {% endblock %}
