@@ -1,15 +1,36 @@
 {% extends 'base.html' %}
 {% block body %}
-<form action="/update_contact/{{ contact_to_update.id }}" method="POST">
-    {{form.hidden_tag()}}
-    {{form.name.label}} {{form.name(value=contact_to_update.name)}}<br>
-    {{form.contact_type.label}} {{form.contact_type(value=contact_to_update.contact_type)}}<br>
-    {{form.email.label}} {{form.email(value=contact_to_update.email)}}<br>
-    {{form.mobile_phone.label}} {{form.mobile_phone(value=contact_to_update.mobile_phone)}}<br>
-    {{form.work_phone.label}} {{form.work_phone(value=contact_to_update.work_phone)}}<br>
-    {{form.address.label}} {{form.address(value=contact_to_update.address)}}<br>
-    {{form.company.label}} {{form.company(value=contact_to_update.company)}}<br>
-    {{form.submit()}}    
-</form>
-<a href="/contact/{{ contact_to_update.id }}" class="btn btn-primary" role="button">Cancel</a>
+<h1 class="m-4 text-center">Edit Contact</h1>
+<div class="container d-flex justify-content-center" style="width: 100%;">
+    <div class="border border-dark rounded panel-default">
+        <form action="/update_contact/{{ contact_to_update.id }}" method="POST">
+            {{form.hidden_tag()}}
+            <div class="p-2 h5 d-flex justify-content-between">
+                {{form.name.label}} {{form.name(value=contact_to_update.name)}}
+            </div>
+            <div class="p-2 h5 d-flex justify-content-between">
+                {{form.contact_type.label}} {{form.contact_type(value=contact_to_update.contact_type)}}
+            </div>
+            <div class="p-2 h5 d-flex justify-content-between">            
+                {{form.email.label}} {{form.email(value=contact_to_update.email)}}
+            </div>
+            <div class="p-2 h5 d-flex justify-content-between">
+                {{form.mobile_phone.label}} {{form.mobile_phone(value=contact_to_update.mobile_phone)}}
+            </div>
+            <div class="p-2 h5 d-flex justify-content-between">
+                {{form.work_phone.label}} {{form.work_phone(value=contact_to_update.work_phone)}}
+            </div>
+            <div class="p-2 h5 d-flex justify-content-between">
+                {{form.address.label}} {{form.address(value=contact_to_update.address)}}
+            </div>
+            <div class="p-2 h5 d-flex justify-content-between">
+                {{form.company.label}} {{form.company(value=contact_to_update.company)}}
+            </div>
+            <div class="p-2 h5 d-flex justify-content-center">
+                {{form.submit(class="btn btn-primary btn-sm m-1")}}
+                <a href="/contact/{{ contact_to_update.id }}" class="btn btn-danger btn-sm m-1" role="button">Cancel</a>
+            </div>  
+        </form>
+    </div>
+</div>
 {% endblock %}

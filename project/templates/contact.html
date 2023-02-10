@@ -1,10 +1,10 @@
 {% extends 'base.html' %}
 {% block body %}
-<h1 class="page-header text-center">Contact</h1>
-<div class="container-contact">
-    <div class="contact-info">
+<h1 class="m-4 text-center">Contact</h1>
+<div class="d-flex justify-content-around">
+    <div class="m-2" style="min-width: 400px;">
         <h4 class="text-center">Info: </h4>
-        <ul class="list-group list-group contact-list">
+        <ul class="list-group list-group border rounded border-dark m-2 contact-list">
             <li class="list-group-item align-items-center">Name: {{ contact.name }}</li>
             <li class="list-group-item align-items-center">Type: {{ contact.contact_type }}</li>
             <li class="list-group-item align-items-center">Mobile: {{ contact.mobile_phone }}</li>
@@ -12,38 +12,38 @@
             <li class="list-group-item align-items-center">Email: {{ contact.email }}</li>
             <li class="list-group-item align-items-center">Address: {{ contact.address }}</li>
             <li class="list-group-item align-items-center">Company Name: {{ contact.company }}</li>
-            <div class="btns-contact">
-                <a href="/update_contact/{{ contact.id }}" class="btn btn-primary btn-sm margin-fix" role="button">Edit</a><br>
-                <a href="/delete_contact/{{ contact.id }}" class="btn btn-primary btn-sm margin-fix" role="button">Delete</a>
+            <div class="d-flex justify-content-center">
+                <a href="/update_contact/{{ contact.id }}" class="btn btn-primary btn-sm m-1" role="button">Edit</a><br>
+                <a href="/delete_contact/{{ contact.id }}" class="btn btn-danger btn-sm m-1" role="button">Delete</a>
             </div>
         </ul>
     </div>
-    <div class="contact-notes">
+    <div style="max-width: 500px;">
             <h4 class="text-center">Notes: </h4>
             {% for note in notes %}
-            <ul class="list-group list-group contact-list">
-                <li class="list-group-item notes align-items-center">
+            <ul class="list-group">
+                <li class="list-group-item border rounded border-dark m-2 align-items-center">
 
-                    <p class="note">{{ note.note }}</p><br>
-                    <div class="notes-option-btns text-center">
-                        <a href="/delete_note/{{ contact.id }}/{{ note.id }}" class="btn btn-primary btn-sm" role="button">Delete</a>
+                    <p class="m-2" style="width: 400px;">{{ note.note }}</p><br>
+                    <div class="text-center">
                         <a href="/edit_note/{{ contact.id }}/{{ note.id }}" class="btn btn-primary btn-sm" role="button">Edit</a>
+                        <a href="/delete_note/{{ contact.id }}/{{ note.id }}" class="btn btn-danger btn-sm" role="button">Delete</a>
     
                     </div>
                 </li>
                 {% endfor %}
             </ul>
     </div>
-    <div class="contact-add-note">
+    <div class="m-2" style="min-width: 350px;">
             <h4 class="text-center">Add Note: </h4>
-            <li class="list-group-item notes align-items-center">
+            <li class="list-group-item border rounded border-dark m-2 align-items-center">
                 <form class="text-center" method="POST">
                     {{form.hidden_tag()}}
-                    {{form.note(class="note-text-area")}}<br>
-                        {{form.submit(class="btn btn-primary btn-sm submit-btn")}}
+                    {{form.note(style="min-width: 300px; min-height:100px;")}}<br>
+                    {{form.submit(class="btn btn-primary btn-sm mt-2")}}
                 </form>
             </li>
     </div>
     
 </div>
-    {% endblock %}
+{% endblock %}

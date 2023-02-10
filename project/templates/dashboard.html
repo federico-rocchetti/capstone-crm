@@ -1,15 +1,18 @@
 {% extends 'base.html' %}
 {% block body %}
 <div class="container">
-    <h1 class="page-header text-center">Dashboard</h1>
+    <h1 class="m-4 text-center">Dashboard</h1>
+    <a href="{{ url_for('add_contact') }}" class="btn btn-primary btn-sm m-1" role="button">Add Contact</a>
     <ul class="list-group">
         {% for contact in contacts %}
         <li class="list-group-item">
             <h5>Name: {{ contact.name }}</h5> <br>
             <h5>Mobile Phone: {{ contact.mobile_phone }}</h5> <br>
             <h5>Company: {{ contact.company }}</h5><br>
-            <a href="/contact/{{ contact.id }}" class="btn btn-primary btn-sm" role="button">Info</a>
-            <a href="/delete_contact/{{ contact.id }}" class="btn btn-primary btn-sm" role="button">Delete</a>
+            <div class="d-flex justify-content-center">
+                <a href="/contact/{{ contact.id }}" class="btn btn-primary btn-sm m-1" role="button">Info</a>
+                <a href="/delete_contact/{{ contact.id }}" class="btn btn-danger btn-sm m-1" role="button">Delete</a>
+            </div>
         </li>
         {% endfor %}
     </ul>

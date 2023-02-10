@@ -35,3 +35,8 @@ class AddNote(FlaskForm):
 
     note = TextAreaField("Note", validators=[DataRequired()])
     submit = SubmitField("Submit")
+
+def get_note_form(notes):
+    class EditNote(AddNote):
+        note = TextAreaField("Note", validators=[DataRequired()], default=notes)
+    return EditNote()

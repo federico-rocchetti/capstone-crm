@@ -1,27 +1,27 @@
 {% extends 'base.html' %}
 {% block body %}
-<div class="container login">
-    <div class="panel panel-default">
-        <div class="panel-heading h2 text-center">Login</div>
-        <form class="form-login" method="POST">
+<div class="container d-flex justify-content-center mt-5" style="width: 100%;">
+    <div class="panel border rounded border-dark panel-default">
+        <div class="border-bottom border-dark h2 d-flex justify-content-center pb-2">Login</div>
+        <form class="p-3" style="background-color: #edede9;" method="POST">
             {{form.hidden_tag()}}
-            <div class="panel-body h5">
+            <div class="p-2 h5">
                 {{form.username.label}}
             </div>
-            <div class="panel-body">
+            <div class="p-2">
                 {{form.username()}}
             </div>
-            <div class="panel-body h5">
+            <div class="p-2 h5">
                 {{form.password.label}}
             </div>
-            <div class="panel-body">
+            <div class="p-2">
                 {{form.password()}}
             </div>
-            <div class="panel-body">
+            <div class="p-2 d-flex justify-content-center">
                 {{form.submit(class="btn btn-primary btn-sm")}}
             </div>
-            <div class="register-link">
-                <p class="register-link-text">
+            <div class="border-top border-dark">
+                <p class="m-2">
                     Don't have an account? <a href="{{ url_for('register') }}">Sing up here!</a>
                 </p>
             </div>

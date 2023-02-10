@@ -2,7 +2,7 @@ from project import app, db, connect_to_db
 from flask import render_template, redirect, request, url_for, flash, abort
 from flask_login import login_user, login_required, logout_user, current_user
 from project.models import User, Contact, Note
-from project.forms import LoginForm, RegistrationForm, AddContact, AddNote
+from project.forms import LoginForm, RegistrationForm, AddContact, AddNote, get_note_form
 
 @app.route('/')
 def home():
@@ -138,8 +138,8 @@ def delete_note(contact_id, note_id):
 @login_required
 def edit_note(contact_id, note_id):
 
-    form = AddNote()
-    note_to_update = Note.query.get(note_id)
+    note_to_update = Note.query.filter_by(id=note_id).first()
+    form = get_note_form(note_to_update.note)
     if form.validate_on_submit():
         note_to_update.note = form.note.data
 
@@ -147,9 +147,8 @@ def edit_note(contact_id, note_id):
 
         flash("Note edited.")
         return redirect(url_for('contact', contact_id=contact_id))
-    return render_template("edit_note.html", contact_id=contact_id, note_to_update=note_to_update, form=form)
-
- 
+    return render_template("edit_note.html", contact_id=contact_id, 
+                            note_to_update=note_to_update, form=form)
 
 if __name__ == "__main__":
     connect_to_db(app)

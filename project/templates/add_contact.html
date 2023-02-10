@@ -1,14 +1,36 @@
 {% extends 'base.html' %}
 {% block body %}
-<form method="POST">
-    {{form.hidden_tag()}}
-    {{form.name.label}} {{form.name()}}<br>
-    {{form.contact_type.label}} {{form.contact_type()}}<br>
-    {{form.email.label}} {{form.email()}}<br>
-    {{form.mobile_phone.label}} {{form.mobile_phone()}}<br>
-    {{form.work_phone.label}} {{form.work_phone()}}<br>
-    {{form.address.label}} {{form.address()}}<br>
-    {{form.company.label}} {{form.company()}}<br>
-    {{form.submit()}}    
-</form>
+<h1 class="m-4 text-center">Add Contact</h1>
+<div class="container d-flex justify-content-center" style="width: 100%;">
+    <div class="border border-dark rounded panel-default" style="background-color: #edede9;">
+        <form method="POST">
+            {{form.hidden_tag()}}
+            <div class="p-2 h5 d-flex justify-content-between">
+                {{form.name.label}}{{form.name()}}
+            </div>
+            <div class="p-2 h5 d-flex justify-content-between">
+                {{form.contact_type.label}} {{form.contact_type()}}
+            </div>
+            <div class="p-2 h5 d-flex justify-content-between">            
+                {{form.email.label}} {{form.email()}}
+            </div>
+            <div class="p-2 h5 d-flex justify-content-between">
+                {{form.mobile_phone.label}} {{form.mobile_phone()}}
+            </div>
+            <div class="p-2 h5 d-flex justify-content-between">
+                {{form.work_phone.label}} {{form.work_phone()}}
+            </div>
+            <div class="p-2 h5 d-flex justify-content-between">
+                {{form.address.label}} {{form.address()}}
+            </div>
+            <div class="p-2 h5 d-flex justify-content-between">
+                {{form.company.label}} {{form.company()}}
+            </div>
+            <div class="p-2 h5 d-flex justify-content-center">
+                {{form.submit(class="btn btn-primary btn-sm m-1")}}
+                <a href="{{ url_for('dashboard') }}" class="btn btn-danger btn-sm m-1" role="button">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
 {% endblock %}
