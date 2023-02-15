@@ -3,12 +3,15 @@ from wtforms import StringField, PasswordField, SubmitField, IntegerField, TextA
 from wtforms.validators import DataRequired, Email, EqualTo, Length
 from wtforms import ValidationError
 
+# LOGIN FORM
 class LoginForm(FlaskForm):
 
     username = StringField("Username", validators=[DataRequired()])
     password = PasswordField("Password", validators=[DataRequired()])
     submit = SubmitField("Submit")
 
+
+# REGISTRATION FORM
 class RegistrationForm(FlaskForm):
 
     username = StringField("Username", validators=[DataRequired()])
@@ -20,6 +23,8 @@ class RegistrationForm(FlaskForm):
         if User.query.filter_by(username=field.data).first():
             raise ValidationError("Username already in use, please try another one.")
 
+
+# ADD CONTACT FORM
 class AddContact(FlaskForm):
 
     name = StringField("Name", validators=[DataRequired()])
@@ -31,11 +36,13 @@ class AddContact(FlaskForm):
     company = StringField("Company Name")
     submit = SubmitField("Submit")
 
+# ADD NOTE FORM
 class AddNote(FlaskForm):
 
     note = TextAreaField("Note", validators=[DataRequired()])
     submit = SubmitField("Submit")
 
+# FUNCTION USED ON EDIT note ROUTE, IT WILL USE ADDNOTE FORM ABOVE AND CURRENT CONTENT OF note AS DEFAULT VALUE FOR TEXT AREA DISPLAYED
 def get_note_form(notes):
     class EditNote(AddNote):
         note = TextAreaField("Note", validators=[DataRequired()], default=notes)

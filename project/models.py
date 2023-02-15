@@ -2,10 +2,13 @@ from project import app, db, connect_to_db, login_manager
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 
+# Required by Flask Login to load_user
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(user_id)
 
+
+# USER DATABASE MODEL
 class User(db.Model, UserMixin):
 
     __tablename__ = "users"
@@ -20,9 +23,12 @@ class User(db.Model, UserMixin):
         self.username = username
         self.password_hash = generate_password_hash(password)
     
+    # Check password function for checking password hash vs hashed password being input
     def check_password(self, password):
         return check_password_hash(self.password_hash, password)
 
+
+# CONTACT DATABASE MODEL
 class Contact(db.Model):
 
     __tablename__ = "contacts"
@@ -49,6 +55,8 @@ class Contact(db.Model):
         self.address = address
         self.company = company
 
+
+# note DATABASE MODEL
 class Note(db.Model):
 
     __tablename__ = "notes"
@@ -60,6 +68,7 @@ class Note(db.Model):
     def __init__(self, contact_id, note):
         self.contact_id = contact_id
         self.note = note
+
 
 if __name__ == "__main__":
     connect_to_db(app)

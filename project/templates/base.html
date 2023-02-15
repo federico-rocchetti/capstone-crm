@@ -7,51 +7,82 @@
 </head>
 
 <body style="background-color: #f4f3ee;">
+
+    <!-- NAVIGATION BAR -->
     <nav class="navbar navbar-dark bg-dark navbar-expand-lg sticky-top">
+
         <a class="navbar-brand" href="{{ url_for('dashboard') }}">CRM</a>
+
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+
             <span class="navbar-toggler-icon"></span>
+
         </button>
+
+        <!-- CONTENT TO DISPLAY ON NAVIGATION BAR IF USER LOGGED IN -->
         {% if current_user.is_authenticated %}
+
         <div class="collapse navbar-collapse" id="navbarNav">
+
             <ul class="navbar-nav">   
+
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ url_for('dashboard') }}">Dashboard</a>
+                    <a class="nav-link" href="{{ url_for('dashboard') }}">Dashboard</a>                   
                 </li>
+
                 <li class="nav-item">
                     <a class="nav-link" href="{{ url_for('add_contact') }}">Add Contact</a>
                 </li>
+
                 <li class="nav-item">
                     <a class="nav-link" href="{{ url_for('logout') }}">Log Out</a>
                 </li>
+                
             </ul>
-        </div>
+       </div>
+
+        <!-- CONTENT TO DISPLAY ON NAVIGATION BAR IF USER LOGGED OUT -->
         {% else %}
+
         <div class="collapse navbar-collapse" id="navbarNav">
+
             <ul class="navbar-nav">
+
                 <li class="nav-item">
                     <a class="nav-link" href="{{ url_for('home') }}">Home</a>
                 </li>
+
                 <li class="nav-item">
                     <a class="nav-link" href="{{ url_for('login') }}">Log In</a>
                 </li>
+
                 <li class="nav-item">
                     <a class="nav-link" href="{{ url_for('register') }}">Sign Up</a>
                 </li>
+
             </ul>
         </div>
+
         {% endif %}
+
     </nav>
 
+    <!-- CONTAINER FOR FLASH MESSAGES -->
     <div class="container">
+
         {% for message in get_flashed_messages() %}
+
             <p class="alert alert-warning mt-2">{{ message }}</p>
+
         {% endfor %}
 
         {% block body %}
+
         {% endblock %}
+
     </div>
 
+    <!-- REQUIRED SCRIPTS BY BOOTSTRAP AND GOOGLE FONT -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.0.0/axios.min.js" integrity="sha512-26uCxGyoPL1nESYXHQ+KUmm3Maml7MEQNWU8hIt1hJaZa5KQAQ5ehBqK6eydcCOh6YAuZjV3augxu/5tY4fsgQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>

@@ -1,23 +1,37 @@
 {% extends 'base.html' %}
+
 {% block body %}
+
 <h1 class="m-4 text-center">Edit Note</h1>
+
 <div class="d-flex justify-content-center" style="min-width: 350px;">
+
     <form class="text-center" action="{{ url_for('edit_note', contact_id=contact_id, note_id=note_to_update.id) }}" method="POST">
+
         <ul class="list-group">
+            
+            <!-- EDIT NOTE FORM -->
             <li class="list-group-item border rounded border-dark m-2 align-items-center">
                 {{form.hidden_tag()}}
+
                 <div class="h4">
                 {{form.note.label}}
                 </div>
+
                 <div>
                 {{form.note(style="min-width: 300px; min-height:100px;", value=note_to_update.note)}}
                 </div>
+
                 <div>
                 {{form.submit(class="btn btn-primary btn-sm m-1")}}
+
+                <!-- CANCEL BUTTON RETURNS TO CONTACT INFORMATION PAGE -->
                 <a href="/contact/{{ contact_id }}" class="btn btn-danger btn-sm m-1" role="button">Cancel</a>
+
                 </div>
             </li>
         </ul>
     </form>
 </div>
+
 {% endblock %}
