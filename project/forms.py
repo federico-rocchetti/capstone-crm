@@ -24,8 +24,8 @@ class AddContact(FlaskForm):
 
     name = StringField("Name", validators=[DataRequired()])
     contact_type = StringField("Contact Type", validators=[DataRequired()])
-    email = StringField("Email", validators=[DataRequired()])
-    mobile_phone = StringField("Mobile Phone", validators=[DataRequired()])
+    email = StringField("Email")
+    mobile_phone = StringField("Mobile Phone")
     work_phone = StringField("Work Phone")
     address = StringField("Address")
     company = StringField("Company Name")
