@@ -2,7 +2,7 @@ from project import app, db, connect_to_db
 from flask import render_template, redirect, request, url_for, flash, abort
 from flask_login import login_user, login_required, logout_user, current_user
 from project.models import User, Contact, Note
-from project.forms import LoginForm, RegistrationForm, AddContact, AddNote, get_note_form
+from project.forms import LoginForm, RegistrationForm, AddContact, AddNote, SearchForm ,get_note_form
 
 
 # HOME ROUTE
@@ -67,15 +67,23 @@ def logout():
 
 
 # DASHBOARD ROUTE
-@app.route('/dashboard')
+@app.route('/dashboard', methods=['GET', 'POST'])
 @login_required
 def dashboard():
 
-    # Query all contacts for user from database
     contacts = Contact.query.filter_by(user_id=current_user.id)
+    form = SearchForm()
+
+    if form.validate_on_submit():
+        contact.searched = form.searched.data
+        contacts = contacts.filter(Contact.name.like('%' + contact.searched + '%'))
+        contacts = contacts.order_by(Contact.name).all()
+        return render_template("search.html", form=form, searched=contact.searched, contacts=contacts)
+
+    # Query all contacts for user from database
 
     # Send all contacts to frontend to be handled and displayed
-    return render_template('/dashboard.html', contacts=contacts)
+    return render_template('/dashboard.html', contacts=contacts, form=form)
 
 
 # ADD CONTACT ROUTE
@@ -95,7 +103,7 @@ def add_contact():
                             work_phone=form.work_phone.data, 
                             address=form.address.data,
                             company=form.company.data) 
-
+                            
         # Add and commit contact to DB, flash success message
         db.session.add(contact)
         db.session.commit()
@@ -213,6 +221,13 @@ def edit_note(contact_id, note_id):
     # Render template passing in Contact ID, Note to update, and Form
     return render_template("edit_note.html", contact_id=contact_id, 
                             note_to_update=note_to_update, form=form)
+
+# SEARCH ROUTE
+@app.route('/search', methods=['POST'])
+@login_required
+def search():
+    pass
+    
 
 
 if __name__ == "__main__":

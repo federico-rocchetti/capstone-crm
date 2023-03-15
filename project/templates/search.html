@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<h1 class="m-4 text-center">Search</h1>
+<h4>Search results for: {{searched}}</h4>
+</br>
+{% for contact in contacts %}
+
+        <li class="list-group-item">
+
+            <h5>Name: {{ contact.name }}</h5> <br>
+
+            <h5>Mobile Phone: {{ contact.mobile_phone }}</h5> <br>
+
+            <h5>Company: {{ contact.company }}</h5><br>
+
+            <div class="d-flex justify-content-center">
+
+                <!-- GO TO FULL CONTACT INFORMATION PAGE BUTTON -->
+                <a href="/contact/{{ contact.id }}" class="btn btn-primary btn-sm m-1" role="button">Info</a>
+                
+                <!-- DELETE CONTACT BUTTON -->
+                <a href="/delete_contact/{{ contact.id }}" class="btn btn-danger btn-sm m-1" role="button">Delete</a>
+            </div>
+        </li>
+
+        {% endfor %}
+{% endblock %}

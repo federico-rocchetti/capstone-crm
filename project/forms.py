@@ -36,7 +36,7 @@ class AddContact(FlaskForm):
     company = StringField("Company Name")
     submit = SubmitField("Submit")
 
-# ADD NOTE FORM
+# ADD note FORM
 class AddNote(FlaskForm):
 
     note = TextAreaField("Note", validators=[DataRequired()])
@@ -47,3 +47,8 @@ def get_note_form(notes):
     class EditNote(AddNote):
         note = TextAreaField("Note", validators=[DataRequired()], default=notes)
     return EditNote()
+
+class SearchForm(FlaskForm):
+
+    searched = StringField("Search", validators=[DataRequired()])
+    submit = SubmitField("Submit")
